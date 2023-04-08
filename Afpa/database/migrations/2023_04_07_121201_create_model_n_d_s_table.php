@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('pdf');
             $table->string('auteur');
             $table->date('date_creation');
-            $table->timestamps();
+            $table->timestamps();            
+            $table->softDeletes();
         });
     }
 

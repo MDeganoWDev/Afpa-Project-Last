@@ -14,8 +14,8 @@ class RequestNDS extends FormRequest
     public function rules()
     {
         $rules = [
-            'titre' => 'required|alpha_num|max:50',
-            'auteur' => 'required|alpha|max:40',
+            'titre' => 'required|regex:/^[a-zA-ZÀ-ÖØ-öø-ÿ\s\d]{1,50}$/u',
+            'auteur' => 'required|regex:/^[\pL\s]+$/u|max:40',
             'date_creation' => 'required|date',
         ];
     

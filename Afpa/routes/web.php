@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CtrlNDS;
+use App\Http\Controllers\CtrlRCS;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,22 +21,31 @@ Route::get('/', function () {
 });
 
 
-//ADMIN 
+/////ADMIN 
+Route::prefix('admin')->group(function () {
+    //NDS
+    Route::get('/note_de_services', [CtrlNDS::class, 'indexAdminNDS'])->name('indexAdminNDS');
+    Route::get('/note_de_services/nouveau', [CtrlNDS::class, 'afficherFormulaireNDS'])->name('createNDS');
+    Route::post('/note_de_services/nouveau', [CtrlNDS::class, 'nouveauNDS'])->name('saveNDS');
+    Route::get('/note_de_services/{id}/modifier', [CtrlNDS::class, 'selectNDS'])->name('selectRCS');
+    Route::put('/note_de_services/{id}', [CtrlNDS::class, 'editNDS'])->name('updateNDS');
+    Route::delete('/note_de_services/{id}', [CtrlNDS::class, 'softDeleteNDS'])->name('softDeleteNDS');
+    //RCS
+    Route::get('/reglements', [CtrlRCS::class, 'indexAdminRCS'])->name('indexAdminRCS');
+    Route::get('/reglements/nouveau', [CtrlRCS::class, 'afficherFormulaireRCS'])->name('createRCS');
+    Route::post('/reglements/nouveau', [CtrlRCS::class, 'nouveauRCS'])->name('saveRCS');
+    Route::get('/reglements/{slug}/modifier', [CtrlRCS::class, 'selectRCS'])->name('selectRCS');
+    Route::put('/reglements/{slug}/modifier', [CtrlRCS::class, 'editRCS'])->name('updateRCS');
+});
 
-Route::get('/admin/note_de_services', [CtrlNDS::class, 'indexAdminNDS'])->name('indexAdminNDS');
-Route::get('/admin/note_de_services/nouveau', [CtrlNDS::class, 'afficherFormulaireNDS'])->name('createNDS');
-Route::post('/admin/note_de_services/nouveau', [CtrlNDS::class, 'nouveauNDS'])->name('saveNDS');
-Route::delete('/admin/note_de_services/{id}', [CtrlNDS::class, 'softDeleteNDS'])->name('softDeleteNDS');
-Route::get('/admin/note_de_services/{id}/modifier', [CtrlNDS::class, 'selectNDS'])->name('upNDS');
-Route::put('/admin/note_de_services/{id}', [CtrlNDS::class, 'editNDS'])->name('updateNDS');
-
-//USER
-
+/////USER
+//NDS
 Route::get('/note_de_services', [CtrlNDS::class, 'indexNDS'])->name('indexNDS');
+//RCS
+Route::get('/reglements', [CtrlRCS::class, 'indexRCS'])->name('indexRCS');
 
 
 //HORS SUJET
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -46,4 +56,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

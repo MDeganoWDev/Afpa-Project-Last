@@ -1,7 +1,7 @@
 @extends('templateFormulaire')
 
 @section('content')
-    <div class="container">
+    <div>
         @if(isset($note_de_service))
             <h1>Modifier la note de service {{ $note_de_service->id }}</h1>
             <form action="{{ route('updateNDS', $note_de_service->id) }}" method="post" enctype="multipart/form-data">
@@ -10,6 +10,11 @@
             <h1>Ajouter une nouvelle note de service</h1>
             <form action="{{ route('createNDS') }}" method="post" enctype="multipart/form-data">
         @endif
+        @if(session('error'))
+    <div>
+        {{ session('error') }}
+    </div>
+@endif
             @csrf
             <div class="form-group">
                 <label for="titre">Titre</label>

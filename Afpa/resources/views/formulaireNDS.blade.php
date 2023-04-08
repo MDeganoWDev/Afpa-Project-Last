@@ -10,11 +10,7 @@
             <h1>Ajouter une nouvelle note de service</h1>
             <form action="{{ route('createNDS') }}" method="post" enctype="multipart/form-data">
         @endif
-        @if(session('error'))
-    <div>
-        {{ session('error') }}
-    </div>
-@endif
+
             @csrf
             <div class="form-group">
                 <label for="titre">Titre</label>

@@ -17,7 +17,7 @@
                     @foreach ($notes_de_service as $note_de_service)
                         <tr>
                             <td>{{ $note_de_service->titre }}</td>
-                            <td><a href="{{ Storage::url($note_de_service->pdf) }}" target="_blank">Télécharger</a></td>
+                           <td> <embed src="{{ Storage::url($note_de_service['pdf']) }}" type="application/pdf" width="100%" height="600px" /></td>
                         </tr>
                     @endforeach
                 </tbody>

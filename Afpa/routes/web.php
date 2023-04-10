@@ -22,12 +22,12 @@ Route::get('/', function () {
 
 
 /////ADMIN 
-Route::prefix('admin')->group(function () {
+Route::prefix('/admin')->group(function () {
     //NDS
     Route::get('/note_de_services', [CtrlNDS::class, 'indexAdminNDS'])->name('indexAdminNDS');
     Route::get('/note_de_services/nouveau', [CtrlNDS::class, 'afficherFormulaireNDS'])->name('createNDS');
     Route::post('/note_de_services/nouveau', [CtrlNDS::class, 'nouveauNDS'])->name('saveNDS');
-    Route::get('/note_de_services/{id}/modifier', [CtrlNDS::class, 'selectNDS'])->name('selectRCS');
+    Route::get('/note_de_services/{id}/modifier', [CtrlNDS::class, 'selectNDS'])->name('selectNDS');
     Route::put('/note_de_services/{id}', [CtrlNDS::class, 'editNDS'])->name('updateNDS');
     Route::delete('/note_de_services/{id}', [CtrlNDS::class, 'softDeleteNDS'])->name('softDeleteNDS');
     //RCS

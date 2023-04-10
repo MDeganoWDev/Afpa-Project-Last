@@ -31,7 +31,7 @@
                                     @method('DELETE')
                                     <button type="submit">Supprimer</button>
                                 </form>
-                                <a href="{{ route('selectRCS', ['id' => $note_de_service->id]) }}">Modifier</a>
+                                <a href="{{ route('selectNDS', ['id' => $note_de_service->id]) }}">Modifier</a>
                             </td>
                         </tr>
                     @endforeach

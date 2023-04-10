@@ -8,7 +8,7 @@
             @method('put')
         @else
             <h1>Ajouter une nouvelle note de service</h1>
-            <form action="{{ route('createNDS') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('saveNDS') }}" method="post" enctype="multipart/form-data">
         @endif
 
             @csrf
@@ -22,7 +22,8 @@
             <div class="form-group">
                 <label for="pdf">PDF</label>
                 @if(isset($note_de_service))
-                    <p>Le fichier PDF actuel est : {{ $note_de_service->pdf }}</p>
+                    <p>Le fichier PDF actuel est :</p>
+                    <embed src="{{ Storage::url($note_de_service['pdf']) }}" type="application/pdf" width="100%" height="600px" />
                     <input type="file" class="form-control @error('pdf') is-invalid @enderror" id="pdf" name="pdf">
                 @else
                     <input type="file" class="form-control @error('pdf') is-invalid @enderror" id="pdf" name="pdf" required>

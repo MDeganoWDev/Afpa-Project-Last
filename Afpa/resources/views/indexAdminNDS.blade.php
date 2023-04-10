@@ -26,7 +26,7 @@
                             <td>{{ $note_de_service->auteur }}</td>
                             <td>{{ $note_de_service->date_creation }}</td>
                             <td>
-                                <form action="{{ route('softDeleteNDS', ['id' => $note_de_service->id]) }}" method="post">
+                                <form action="{{ route('softDeleteNDS', ['id' => $note_de_service->id]).#toolbar=0 }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">Supprimer</button>

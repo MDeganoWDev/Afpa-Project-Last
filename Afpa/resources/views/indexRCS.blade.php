@@ -22,7 +22,7 @@
                             <td>{{ $reglement->titre }}</td>
                             <td>
                                 @if (isset($reglement->pdf))
-                                <embed src="{{ Storage::url($reglement['pdf']) }}" type="application/pdf" width="100%" height="600px" />
+                                <embed src="{{ Storage::url($reglement['pdf']) }}.#toolbar=0" type="application/pdf" width="100%" height="600px"/>
                                 @else
                                     Aucun fichier
                                 @endif

@@ -23,7 +23,7 @@
                 <label for="pdf">PDF</label>
                 @if(isset($note_de_service))
                     <p>Le fichier PDF actuel est :</p>
-                    <embed src="{{ Storage::url($note_de_service['pdf']) }}" type="application/pdf" width="100%" height="600px" />
+                    <embed src="{{ Storage::url($note_de_service['pdf']).#toolbar=0 }}" type="application/pdf" width="100%" height="600px" />
                     <input type="file" class="form-control @error('pdf') is-invalid @enderror" id="pdf" name="pdf">
                 @else
                     <input type="file" class="form-control @error('pdf') is-invalid @enderror" id="pdf" name="pdf" required>

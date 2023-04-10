@@ -25,7 +25,7 @@
                                 $reglement = $reglements->firstWhere('titre', 'Règlement intérieur');
                             @endphp
                             @if (isset($reglement) && isset($reglement['pdf']))
-                             <embed src="{{ Storage::url($reglement['pdf']) }}" type="application/pdf" width="100%" height="600px" />
+                             <embed src="{{ Storage::url($reglement['pdf']).#toolbar=0 }}" type="application/pdf" width="100%" height="600px" />
                             @else
                                 Aucun fichier
                             @endif
@@ -45,7 +45,7 @@
                                 $reglement = $reglements->firstWhere('titre', 'Sécurité incendie');
                             @endphp
                             @if (isset($reglement) && isset($reglement['pdf']))
-                             <embed src="{{ Storage::url($reglement['pdf']) }}" type="application/pdf" width="100%" height="600px" />
+                             <embed src="{{ Storage::url($reglement['pdf']).#toolbar=0 }}" type="application/pdf" width="100%" height="600px" />
                             @else
                                 Aucun fichier
                             @endif
@@ -67,7 +67,7 @@
                             @endphp
                             @if (isset($reglement))
                                 @if (isset($reglement['pdf']))
-                                <embed src="{{ Storage::url($reglement['pdf']) }}" type="application/pdf" width="100%" height="600px" />
+                                <embed src="{{ Storage::url($reglement['pdf']).#toolbar=0 }}" type="application/pdf" width="100%" height="600px" />
                                 @else
                                     Aucun fichier
                                 @endif

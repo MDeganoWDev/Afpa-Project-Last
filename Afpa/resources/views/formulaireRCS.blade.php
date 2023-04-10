@@ -21,7 +21,7 @@
                     <input type="file" name="pdf" id="pdf">
                     @if (isset($reglement) && isset($reglement->pdf))
                         <div>
-                        <embed src="{{ Storage::url($reglement['pdf']).#toolbar=0 }}" type="application/pdf" width="100%" height="600px" />
+                        <embed src="{{ Storage::url($reglement['pdf']) }}.#toolbar=0" type="application/pdf" width="100%" height="600px" />
                         </div>
                     @endif
                 </div>

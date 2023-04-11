@@ -22,7 +22,7 @@ Route::get('/', function () {
 
 
 /////ADMIN 
-Route::prefix('/admin')->group(function () {
+Route::prefix('/admin')->middleware('role:admin')->group(function () {
     //NDS
     Route::get('/note_de_services', [CtrlNDS::class, 'indexAdminNDS'])->name('indexAdminNDS');
     Route::get('/note_de_services/nouveau', [CtrlNDS::class, 'afficherFormulaireNDS'])->name('createNDS');

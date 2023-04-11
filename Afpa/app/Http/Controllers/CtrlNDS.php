@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RequestNDS;
 use App\Models\ModelNDS;
+use App\Models\Visibilite;
+use App\Models\Etat;
 use Illuminate\Support\Facades\Storage;
 
 class CtrlNDS extends Controller
@@ -12,29 +14,41 @@ class CtrlNDS extends Controller
     {
         try {
             $notes_de_service = ModelNDS::whereNull('deleted_at')->get();
+            $visibilites = Visibilite::all();
+            $etats = Etat::all();
         } catch (\Exception $e) {
             return view('indexNDS')->with('error', 'Désolé, la base de donnée n\'est pas disponible.')
                 ->with('notes_de_service', []);
         }
 
-        return view('indexNDS', ['notes_de_service' => $notes_de_service]);
+        return view('indexNDS', ['notes_de_service' => $notes_de_service, 'visibilites' => $visibilites, 'etats' => $etats]);
     }
     public function indexAdminNDS()
     {
         try {
             $notes_de_service = ModelNDS::whereNull('deleted_at')->get();
+            $visibilites = Visibilite::all();
+            $etats = Etat::all();
         } catch (\Exception $e) {
             return view('indexAdminNDS')->with('error', 'Désolé, la base de donnée n\'est pas disponible.')
                 ->with('notes_de_service', []);
         }
 
-        return view('indexAdminNDS', ['notes_de_service' => $notes_de_service]);
+        return view('indexAdminNDS', ['notes_de_service' => $notes_de_service, 'visibilites' => $visibilites, 'etats' => $etats]);
     }
 
 
     public function afficherFormulaireNDS()
     {
-        return view('formulaireNDS');
+        try {
+        $visibilites = Visibilite::all();
+        $etats = Etat::all();
+    } catch (\Exception $e) {
+        return view('indexAdminNDS')->with('error', 'Désolé, la base de donnée n\'est pas disponible.')
+            ->with('notes_de_service', []);
+    }
+
+        return view('formulaireNDS', ['visibilites' => $visibilites, 'etats' => $etats]);
     }
 
     public function nouveauNDS(RequestNDS $request)
@@ -49,10 +63,12 @@ class CtrlNDS extends Controller
             $note_de_service->pdf = $pdfPath;
             $note_de_service->auteur = $request->input('auteur');
             $note_de_service->date_creation = $request->input('date_creation');
+            $note_de_service->visibilite_id = $request->input('visibilite');
+            $note_de_service->etat_id = $request->input('etat');
             $note_de_service->save();
         } catch (\Exception $e) {
             return view('indexAdminNDS')->with('error', 'Désolé, la base de donnée n\'est pas disponible.')
-            ->with('notes_de_service', []);
+                ->with('notes_de_service', []);
         }
 
         return redirect('/admin/note_de_services')->with('success', 'La note de service "' . $note_de_service->titre . '" a été ajoutée avec succès.');
@@ -60,19 +76,21 @@ class CtrlNDS extends Controller
     public function selectNDS($id)
     {
         try {
-            $note_de_service = ModelNDS::findOrFail($id);
+            $note_de_service = ModelNDS::with('visibilite', 'etat')->findOrFail($id);
+            $visibilites = Visibilite::all();
+            $etats = Etat::all();
         } catch (\Exception $e) {
             return view('indexAdminNDS')->with('error', 'Désolé, la base de donnée n\'est pas disponible.')
-            ->with('notes_de_service', []);
+                ->with('notes_de_service', []);
         }
-
-        return view('formulaireNDS', ['note_de_service' => $note_de_service]);
+    
+        return view('formulaireNDS', ['note_de_service' => $note_de_service, 'visibilites' => $visibilites, 'etats' => $etats]);
     }
+    
     public function editNDS($id, RequestNDS $request)
     {
         try {
             $note_de_service = ModelNDS::findOrFail($id);
-
             $pdfPath = $note_de_service->pdf;
 
             if ($request->hasFile('pdf')) {
@@ -87,10 +105,12 @@ class CtrlNDS extends Controller
             $note_de_service->pdf = $pdfPath;
             $note_de_service->auteur = $request->input('auteur');
             $note_de_service->date_creation = $request->input('date_creation');
+            $note_de_service->visibilite_id = $request->input('visibilite');
+            $note_de_service->etat_id = $request->input('etat');
             $note_de_service->save();
         } catch (\Exception $e) {
             return view('indexAdminNDS')->with('error', 'Désolé, la base de donnée n\'est pas disponible.')
-            ->with('notes_de_service', []);
+                ->with('notes_de_service', []);
         }
 
         return redirect('/admin/note_de_services')->with('success', 'La note de service "' . $note_de_service->titre . '" a été modifiée avec succès.');
@@ -101,7 +121,7 @@ class CtrlNDS extends Controller
             $note_de_service = ModelNDS::findOrFail($id);
         } catch (\Exception $e) {
             return view('indexAdminNDS')->with('error', 'Désolé, la base de donnée n\'est pas disponible.')
-            ->with('notes_de_service', []);
+                ->with('notes_de_service', []);
         }
 
         $note_de_service->delete();

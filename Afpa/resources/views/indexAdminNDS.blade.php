@@ -17,6 +17,8 @@
                         <th>Auteur</th>
                         <th>Date de création</th>
                         <th>Actions</th>
+                        <th>Visibilité</th>
+                        <th>Etat</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -25,6 +27,8 @@
                             <td>{{ $note_de_service->titre }}</td>
                             <td>{{ $note_de_service->auteur }}</td>
                             <td>{{ $note_de_service->date_creation }}</td>
+                            <td>{{ $note_de_service->visibilite->nom }}</td>
+                            <td>{{ $note_de_service->etat->nom }}</td>
                             <td>
                                 <form action="{{ route('softDeleteNDS', ['id' => $note_de_service->id]) }}.#toolbar=0" method="post">
                                     @csrf

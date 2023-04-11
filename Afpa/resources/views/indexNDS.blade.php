@@ -15,10 +15,12 @@
                 </thead>
                 <tbody>
                     @foreach ($notes_de_service as $note_de_service)
+                    @if ($note_de_service->etat_id == 2)
                         <tr>
                             <td>{{ $note_de_service->titre }}</td>
                            <td> <embed src="{{ Storage::url($note_de_service['pdf']) }}.#toolbar=0" type="application/pdf" width="100%" height="600px" /></td>
                         </tr>
+                        @endif
                     @endforeach
                 </tbody>
             </table>

@@ -22,25 +22,25 @@ class CtrlRCS extends Controller
     public function indexAdminRCS()
     {
         try {
-        $reglements = ModelRCS::whereNull('deleted_at')->get();
-    } catch (\Exception $e) {
-        return view('indexAdminRCS')->with('error', 'Désolé, la base de données n\'est pas disponible.')
-            ->with('reglements', []);
-    }
+            $reglements = ModelRCS::whereNull('deleted_at')->get();
+        } catch (\Exception $e) {
+            return view('indexAdminRCS')->with('error', 'Désolé, la base de données n\'est pas disponible.')
+                ->with('reglements', []);
+        }
         return view('indexAdminRCS', [
             'reglements' => $reglements,
         ]);
-    }   
+    }
     public function afficherFormulaireRCS(RequestRCS $request)
     {
         try {
-        $titre = $request->input('titre');
-    } catch (\Exception $e) {
-        return view('indexAdminRCS')->with('error', 'Désolé, la base de données n\'est pas disponible.')
-            ->with('reglements', []);
-    }
+            $titre = $request->input('titre');
+        } catch (\Exception $e) {
+            return view('indexAdminRCS')->with('error', 'Désolé, la base de données n\'est pas disponible.')
+                ->with('reglements', []);
+        }
         return view('formulaireRCS')->with('titre', $titre);
-    } 
+    }
 
     public function nouveauRCS(RequestRCS $request)
     {
@@ -52,7 +52,10 @@ class CtrlRCS extends Controller
             $reglement = new ModelRCS();
             $reglement->titre = $request->input('titre');
             $reglement->pdf = $pdfPath;
+            $reglement->visibilite_id = 3;
+            $reglement->etat_id = 2;
             $reglement->save();
+
         } catch (\Exception $e) {
             return view('indexAdminRCS')->with('error', 'Désolé, la base de données n\'est pas disponible.')
                 ->with('reglements', []);
@@ -68,32 +71,32 @@ class CtrlRCS extends Controller
         } catch (\Exception $e) {
             return view('indexAdminRCS')->with('error', 'Désolé, la base de données n\'est pas disponible.')
                 ->with('reglement', []);
-        }     
+        }
         return view('formulaireRCS', ['reglement' => $reglement, 'titre' => $titre]);
-    }    
+    }
     public function editRCS(RequestRCS $request, $slug)
     {
         try {
             $titre = str_replace('_', ' ', $slug);
             $reglement = ModelRCS::where('titre', $titre)->firstOrFail();
-    
+
             $pdfPath = $reglement->pdf;
-    
+
             if ($request->hasFile('pdf')) {
                 $pdf = $request->file('pdf');
                 $pdfName = $pdf->getClientOriginalName();
                 $pdfPath = $pdf->storeAs('public/RCS', $pdfName);
-    
+
                 Storage::delete($reglement->pdf);
             }
-    
+
             $reglement->pdf = $pdfPath;
             $reglement->save();
         } catch (\Exception $e) {
             return redirect('/admin/reglements')->with('error', 'Désolé, la base de données n\'est pas disponible.')
                 ->with('reglements', []);
         }
-    
+
         return redirect('/admin/reglements')->with('success', 'Le fichier "' . $reglement->titre . '" a été modifié avec succès.');
     }
-}    
+}

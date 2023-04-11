@@ -45,6 +45,22 @@
                 @error('date_creation')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+                <div class="form-group">
+    <label for="visibilite">Visibilité</label>
+    <select class="form-control" id="visibilite" name="visibilite">
+        @foreach ($visibilites as $visibilite)
+        <option value="{{ $visibilite->id }}" @if(isset($note_de_service) && $note_de_service->visibilite_id == $visibilite->id) selected @endif>{{ $visibilite->nom }}</option>
+        @endforeach
+    </select>
+</div>
+<div class="form-group">
+    <label for="etat">État</label>
+    <select class="form-control" id="etat" name="etat">
+        @foreach ($etats as $etat)
+        <option value="{{ $etat->id }}" @if(isset($note_de_service) && $note_de_service->etat_id == $etat->id) selected @endif>{{ $etat->nom }}</option>
+        @endforeach
+    </select>
+</div>
             </div>
             <button type="submit" class="btn btn-primary">{{ isset($note_de_service) ? 'Modifier' : 'Ajouter' }}</button>
         </form>

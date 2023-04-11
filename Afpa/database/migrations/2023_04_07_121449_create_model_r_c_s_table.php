@@ -19,6 +19,11 @@ return new class extends Migration
             $table->string('pdf');
             $table->timestamps();            
             $table->softDeletes();
+            $table->unsignedBigInteger('visibilite_id');
+            $table->unsignedBigInteger('etat_id');
+
+            $table->foreign('visibilite_id')->references('id')->on('visibilites')->onDelete('cascade');
+            $table->foreign('etat_id')->references('id')->on('etats')->onDelete('cascade');
         });
     }
 

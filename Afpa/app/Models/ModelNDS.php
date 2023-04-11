@@ -12,4 +12,13 @@ class ModelNDS extends Model
 
     protected $dates = ['deleted_at'];
     protected $table = 'note_de_services';
+
+    public function visibilite()
+    {
+        return $this->belongsTo(Visibilite::class);
+    }
+    public function etat()
+    {
+        return $this->belongsTo(Etat::class);
+    }
 }

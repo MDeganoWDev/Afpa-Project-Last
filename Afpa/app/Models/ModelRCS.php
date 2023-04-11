@@ -17,4 +17,12 @@ class ModelRCS extends Model
     {
         return Str::slug($this->titre, '_');
     }
+    public function visibilite()
+    {
+        return $this->belongsTo(Visibilite::class);
+    }
+    public function etat()
+    {
+        return $this->belongsTo(Etat::class);
+    }
 }

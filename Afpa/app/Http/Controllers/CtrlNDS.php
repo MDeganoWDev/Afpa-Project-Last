@@ -86,6 +86,17 @@ class CtrlNDS extends Controller
     
         return view('formulaireNDS', ['note_de_service' => $note_de_service, 'visibilites' => $visibilites, 'etats' => $etats]);
     }
+    public function pageNDS($id)
+{
+    try {
+        $note_de_service = ModelNDS::findOrFail($id);
+    } catch (\Exception $e) {
+        return view('indexNDS')->with('error', 'Désolé, la base de donnée n\'est pas disponible.')
+            ->with('notes_de_service', []);
+    }
+
+    return view('pageNDS', ['note_de_service' => $note_de_service]);
+}
     
     public function editNDS($id, RequestNDS $request)
     {

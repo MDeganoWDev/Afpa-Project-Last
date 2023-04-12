@@ -41,8 +41,11 @@ Route::prefix('/admin')->middleware('role:admin')->group(function () {
 /////USER
 //NDS
 Route::get('/note_de_services', [CtrlNDS::class, 'indexNDS'])->name('indexNDS');
+Route::get('/note_de_services/{id}', [CtrlNDS::class, 'pageNDS'])->name('pageNDS');
 //RCS
 Route::get('/reglements', [CtrlRCS::class, 'indexRCS'])->name('indexRCS');
+Route::get('/reglements/{slug}', [CtrlRCS::class, 'pageRCS'])->name('pageRCS');
+
 
 
 //HORS SUJET

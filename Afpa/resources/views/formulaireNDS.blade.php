@@ -87,7 +87,7 @@
                         </div>
                     </div>
                 </form>
-                <div class="text-center p-2">
+                <div class="text-center">
                     <button type="submit" class="btn btn-primary bg-green-600 rounded-xl m-2 p-2 text-white">{{ isset($note_de_service) ? 'Modifier | #' : 'Valider | √' }}</button>
                     <button type="reset" class="bg-red-600 rounded-xl m-2 p-2 text-white">Annuler | X</button>
                 </div>

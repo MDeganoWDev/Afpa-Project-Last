@@ -41,12 +41,12 @@ class CtrlNDS extends Controller
     public function afficherFormulaireNDS()
     {
         try {
-        $visibilites = Visibilite::all();
-        $etats = Etat::all();
-    } catch (\Exception $e) {
-        return view('indexAdminNDS')->with('error', 'Désolé, la base de donnée n\'est pas disponible.')
-            ->with('notes_de_service', []);
-    }
+            $visibilites = Visibilite::all();
+            $etats = Etat::all();
+        } catch (\Exception $e) {
+            return view('indexAdminNDS')->with('error', 'Désolé, la base de donnée n\'est pas disponible.')
+                ->with('notes_de_service', []);
+        }
 
         return view('formulaireNDS', ['visibilites' => $visibilites, 'etats' => $etats]);
     }
@@ -73,34 +73,50 @@ class CtrlNDS extends Controller
 
         return redirect('/admin/note_de_services')->with('success', 'La note de service "' . $note_de_service->titre . '" a été ajoutée avec succès.');
     }
-    public function selectNDS($id)
+    public function selectNDS($slug)
     {
+        $titre = str_replace('_', ' ', $slug);
         try {
-            $note_de_service = ModelNDS::with('visibilite', 'etat')->findOrFail($id);
+            $note_de_service = ModelNDS::where('titre', $titre)->firstOrFail();
             $visibilites = Visibilite::all();
             $etats = Etat::all();
         } catch (\Exception $e) {
             return view('indexAdminNDS')->with('error', 'Désolé, la base de donnée n\'est pas disponible.')
                 ->with('notes_de_service', []);
         }
-    
-        return view('formulaireNDS', ['note_de_service' => $note_de_service, 'visibilites' => $visibilites, 'etats' => $etats]);
-    }
-    
-    public function editNDS($id, RequestNDS $request)
-    {
-        try {
-            $note_de_service = ModelNDS::findOrFail($id);
-            $pdfPath = $note_de_service->pdf;
 
+        return view('formulaireNDS', ['note_de_service' => $note_de_service, 'titre' => $titre, 'visibilites' => $visibilites, 'etats' => $etats]);
+    }
+    public function pageNDS($slug)
+    {
+        $titre = str_replace('_', ' ', $slug);
+        try {
+            $note_de_service = ModelNDS::where('titre', $titre)->firstOrFail();
+        } catch (\Exception $e) {
+            return view('indexNDS')->with('error', 'Désolé, la base de donnée n\'est pas disponible.')
+                ->with('notes_de_service', []);
+        }
+
+        return view('pageNDS', ['note_de_service' => $note_de_service]);
+    }
+
+    public function editNDS($slug, RequestNDS $request)
+    {
+        $titre = str_replace('_', ' ', $slug);
+        try {
+            $note_de_service = ModelNDS::where('titre', $titre)->firstOrFail();
+            $pdfPath = $note_de_service->pdf;
+    
             if ($request->hasFile('pdf')) {
                 $pdf = $request->file('pdf');
                 $pdfName = $pdf->getClientOriginalName();
                 $pdfPath = $pdf->storeAs('public/NDS', $pdfName);
-
+    
                 Storage::delete($note_de_service->pdf);
             }
-
+    
+            $request->validate($request->rulesForEdit());
+    
             $note_de_service->titre = $request->input('titre');
             $note_de_service->pdf = $pdfPath;
             $note_de_service->auteur = $request->input('auteur');
@@ -112,19 +128,23 @@ class CtrlNDS extends Controller
             return view('indexAdminNDS')->with('error', 'Désolé, la base de donnée n\'est pas disponible.')
                 ->with('notes_de_service', []);
         }
-
+    
         return redirect('/admin/note_de_services')->with('success', 'La note de service "' . $note_de_service->titre . '" a été modifiée avec succès.');
     }
-    public function softDeleteNDS($id)
+    
+    public function softDeleteNDS($slug)
     {
+        $titre = str_replace('_', ' ', $slug);
         try {
-            $note_de_service = ModelNDS::findOrFail($id);
+            $note_de_service = ModelNDS::where('titre', $titre)->firstOrFail();
         } catch (\Exception $e) {
             return view('indexAdminNDS')->with('error', 'Désolé, la base de donnée n\'est pas disponible.')
                 ->with('notes_de_service', []);
         }
 
+        $note_de_service->titre = $note_de_service->titre . ' soft_deleted' .$note_de_service->id;
+        $note_de_service->save();
         $note_de_service->delete();
-        return redirect('/admin/note_de_services')->with('success', 'La note de service "' . $note_de_service->titre . '" a été supprimée avec succès.');
+        return redirect('/admin/note_de_services')->with('success', 'La note de service "' . $titre . '" a été supprimée avec succès.');
     }
 }

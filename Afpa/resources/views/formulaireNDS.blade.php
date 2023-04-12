@@ -4,7 +4,7 @@
     <div>
         @if(isset($note_de_service))
             <h1>Modifier la note de service {{ $note_de_service->id }}</h1>
-            <form action="{{ route('updateNDS', $note_de_service->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('updateNDS', ['slug' => $note_de_service['slug']]) }}" method="post" enctype="multipart/form-data">
             @method('put')
         @else
             <h1>Ajouter une nouvelle note de service</h1>

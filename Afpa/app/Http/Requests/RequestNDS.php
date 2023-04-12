@@ -27,5 +27,17 @@ class RequestNDS extends FormRequest
     
         return $rules;
     }
+    public function rulesForEdit()
+{
+    $titre = str_replace('_', ' ', $this->route('slug'));
+
+    return [
+        'titre' => 'required|unique:note_de_services,titre,' . $titre . ',titre',
+        'auteur' => 'required',
+        'date_creation' => 'required|date',
+        'pdf' => 'sometimes|required|mimes:pdf|max:10000'
+    ];
+}
+
     
 }

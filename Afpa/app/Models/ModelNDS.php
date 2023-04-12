@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use \Illuminate\Support\Str;
 
 class ModelNDS extends Model
 {
@@ -13,6 +14,10 @@ class ModelNDS extends Model
     protected $dates = ['deleted_at'];
     protected $table = 'note_de_services';
 
+    public function getSlugAttribute()
+    {
+        return Str::slug($this->titre, '_');
+    }
     public function visibilite()
     {
         return $this->belongsTo(Visibilite::class);

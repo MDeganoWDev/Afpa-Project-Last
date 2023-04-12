@@ -1,8 +1,15 @@
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
 @extends('templateFormulaire')
 
+
 @section('content')
+<body style="background-color: #87BB34;">
+    
+</body>
     <div>
-        <h1>Liste des notes de service</h1>
+        <h1 class="text-2xl font-size: 1.5rem,line-height: 2rem, text-center">Liste des notes de services</h1>
         @if(isset($error))
             <div>{{ $error }}</div>
         @else

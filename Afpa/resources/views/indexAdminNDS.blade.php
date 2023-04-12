@@ -2,7 +2,7 @@
 
 @section('content')
     <div>
-        <h1>Notes de service</h1>
+        <h1>Notes de Services</h1>
         @if(isset($error))
             <div>{{ $error }}</div>
         @else
@@ -15,7 +15,7 @@
                     <tr>
                         <th>Titre</th>
                         <th>Auteur</th>
-                        <th>Date de création</th>
+                        <th>Date de Création</th>
                         <th>Actions</th>
                         <th>Visibilité</th>
                         <th>Etat</th>

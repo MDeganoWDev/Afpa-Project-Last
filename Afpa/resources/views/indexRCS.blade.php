@@ -19,7 +19,7 @@
                 <tbody>
                     @foreach ($reglements as $reglement)
                         <tr>
-                            <td>{{ $reglement->titre }}</td>
+                            <td><td><a href="{{ route('pageRCS', str_replace(' ', '_', $reglement->titre)) }}">{{ $reglement->titre }}</a></td></td>
                             <td>
                                 @if (isset($reglement->pdf))
                                 <embed src="{{ Storage::url($reglement['pdf']) }}.#toolbar=0" type="application/pdf" width="100%" height="600px"/>

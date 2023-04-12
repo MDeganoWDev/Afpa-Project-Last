@@ -41,7 +41,18 @@ class CtrlRCS extends Controller
         }
         return view('formulaireRCS')->with('titre', $titre);
     }
-
+    public function pageRCS($slug)
+    {
+        try {
+            $titre = str_replace('_', ' ', $slug);
+            $reglement = ModelRCS::where('titre', $titre)->firstOrFail();
+        } catch (\Exception $e) {
+            return view('indexRCS')->with('error', 'Désolé, la base de données n\'est pas disponible.')
+                ->with('reglement', []);
+        }
+        return view('pageRCS', ['reglement' => $reglement]);
+    }
+    
     public function nouveauRCS(RequestRCS $request)
     {
         try {

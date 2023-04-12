@@ -142,7 +142,9 @@ class CtrlNDS extends Controller
                 ->with('notes_de_service', []);
         }
 
+        $note_de_service->titre = $note_de_service->titre . ' soft_deleted' .$note_de_service->id;
+        $note_de_service->save();
         $note_de_service->delete();
-        return redirect('/admin/note_de_services')->with('success', 'La note de service "' . $note_de_service->titre . '" a été supprimée avec succès.');
+        return redirect('/admin/note_de_services')->with('success', 'La note de service "' . $titre . '" a été supprimée avec succès.');
     }
 }

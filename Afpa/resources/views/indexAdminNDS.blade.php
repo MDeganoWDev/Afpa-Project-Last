@@ -9,7 +9,10 @@
 <body style="background-color: #87BB34">
     <div>
         <div class="flex justify-around items-center bg-white border-2 border-solid border-black rounded-3xl m-20">
-            <h1 class="text-4xl">MENU NOTES DE SERVICE</h1>
+            <div>
+                <h1 class="text-4xl uppercase">Notes de service</h1>
+                <p>Menu</p>
+            </div>
             <img src="{{ asset('images/afpa.jpg') }}" alt="logo AFPA" width="200" height="200">
         </div>
         @if(isset($error))

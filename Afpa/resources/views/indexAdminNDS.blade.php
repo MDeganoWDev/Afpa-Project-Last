@@ -35,17 +35,17 @@
                 <tbody>
                     @foreach ($notes_de_service as $note_de_service)
                     <tr>
-                        <td class="px-auto py-auto align-middle  text-center border-2 border-solid border-black capitalize">{{ $note_de_service->titre }}</td>
-                        <td class="px-auto py-auto align-middle text-center border-2 border-solid border-black capitalize">{{ $note_de_service->auteur }}</td>
-                        <td class="px-auto py-auto align-middle text-center border-2 border-solid border-black capitalize">{{ $note_de_service->date_creation }}</td>
-                        <td class="px-auto py-auto align-middle text-center border-2 border-solid border-black capitalize">{{ $note_de_service->visibilite->nom }}</td>
-                        <td class="px-auto py-auto align-middle text-center border-2 border-solid border-black capitalize">{{ $note_de_service->etat->nom }}</td>
-                        <td class="px-auto py-auto align-middle flex text-center">
-                            <a href="{{ route('selectNDS', ['slug' => $note_de_service['slug']]) }}"><button class="bg-blue-600 rounded-xl m-4 p-2">Modifier | #</button></a>
+                        <td class="align-middle text-center border-2 border-solid border-black capitalize">{{ $note_de_service->titre }}</td>
+                        <td class="align-middle text-center border-2 border-solid border-black capitalize">{{ $note_de_service->auteur }}</td>
+                        <td class="align-middle text-center border-2 border-solid border-black capitalize">{{ $note_de_service->date_creation }}</td>
+                        <td class="align-middle text-center border-2 border-solid border-black capitalize">{{ $note_de_service->visibilite->nom }}</td>
+                        <td class="align-middle text-center border-2 border-solid border-black capitalize">{{ $note_de_service->etat->nom }}</td>
+                        <td class="align-middle flex text-center">
+                            <a href="{{ route('selectNDS', ['slug' => $note_de_service['slug']]) }}"><button class="bg-blue-600 rounded-xl m-2 p-2">Modifier | #</button></a>
                             <form action="{{ route('DeleteNDS', ['slug' => $note_de_service['slug']]) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="bg-red-600 rounded-xl m-4 p-2">Supprimer | X</button>
+                                <button type="submit" class="bg-red-600 rounded-xl m-2 p-2">Supprimer | X</button>
                             </form>
                         </td>
                     </tr>

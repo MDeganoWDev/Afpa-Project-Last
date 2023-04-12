@@ -30,12 +30,13 @@
                             <td>{{ $note_de_service->visibilite->nom }}</td>
                             <td>{{ $note_de_service->etat->nom }}</td>
                             <td>
-                                <form action="{{ route('softDeleteNDS', ['id' => $note_de_service->id]) }}.#toolbar=0" method="post">
+                            <form action="{{ route('DeleteNDS', ['slug' => $note_de_service['slug']]) }}" method="post">
+
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit">Supprimer</button>
                                 </form>
-                                <a href="{{ route('selectNDS', ['id' => $note_de_service->id]) }}">Modifier</a>
+                                <a href="{{ route('selectNDS', ['slug' => $note_de_service['slug']]) }}">Modifier</a>
                             </td>
                         </tr>
                     @endforeach

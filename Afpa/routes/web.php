@@ -27,9 +27,10 @@ Route::prefix('/admin')->middleware('role:admin')->group(function () {
     Route::get('/note_de_services', [CtrlNDS::class, 'indexAdminNDS'])->name('indexAdminNDS');
     Route::get('/note_de_services/nouveau', [CtrlNDS::class, 'afficherFormulaireNDS'])->name('createNDS');
     Route::post('/note_de_services/nouveau', [CtrlNDS::class, 'nouveauNDS'])->name('saveNDS');
-    Route::get('/note_de_services/{id}/modifier', [CtrlNDS::class, 'selectNDS'])->name('selectNDS');
-    Route::put('/note_de_services/{id}', [CtrlNDS::class, 'editNDS'])->name('updateNDS');
-    Route::delete('/note_de_services/{id}', [CtrlNDS::class, 'softDeleteNDS'])->name('softDeleteNDS');
+    Route::get('/note_de_services/{slug}/modifier', [CtrlNDS::class, 'selectNDS'])->name('selectNDS');
+    Route::put('/note_de_services/{slug}', [CtrlNDS::class, 'editNDS'])->name('updateNDS');
+    Route::delete('/admin/note_de_services/{slug}', [CtrlNDS::class, 'softDeleteNDS'])->name('DeleteNDS');
+
     //RCS
     Route::get('/reglements', [CtrlRCS::class, 'indexAdminRCS'])->name('indexAdminRCS');
     Route::get('/reglements/nouveau', [CtrlRCS::class, 'afficherFormulaireRCS'])->name('createRCS');
@@ -41,7 +42,7 @@ Route::prefix('/admin')->middleware('role:admin')->group(function () {
 /////USER
 //NDS
 Route::get('/note_de_services', [CtrlNDS::class, 'indexNDS'])->name('indexNDS');
-Route::get('/note_de_services/{id}', [CtrlNDS::class, 'pageNDS'])->name('pageNDS');
+Route::get('/note_de_services/{slug}', [CtrlNDS::class, 'pageNDS'])->name('pageNDS');
 //RCS
 Route::get('/reglements', [CtrlRCS::class, 'indexRCS'])->name('indexRCS');
 Route::get('/reglements/{slug}', [CtrlRCS::class, 'pageRCS'])->name('pageRCS');

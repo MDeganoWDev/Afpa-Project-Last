@@ -1,7 +1,3 @@
-<head>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-
 @extends('templateFormulaire')
 
 @section('content')
@@ -45,7 +41,7 @@
                         <td class="text-center border-2 border-solid border-black capitalize">{{ $note_de_service->visibilite->nom }}</td>
                         <td class="text-center border-2 border-solid border-black capitalize">{{ $note_de_service->etat->nom }}</td>
                         <td class="flex text-center">
-                            <a href="{{ route('selectNDS', ['slug' => $note_de_service['slug']]) }}"><button class="bg-blue-600 rounded-xl m-2 p-2">Modifier | #</button></a>
+                        <a href="{{ route('selectNDS', ['slug' => $note_de_service['slug']]) }}"><button class="bg-blue-600 rounded-xl m-2 p-2">Modifier | #</button></a>
                             <form action="{{ route('DeleteNDS', ['slug' => $note_de_service['slug']]) }}" method="post">
                                 @csrf
                                 @method('DELETE')

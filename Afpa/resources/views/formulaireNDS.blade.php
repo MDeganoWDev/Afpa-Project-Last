@@ -27,7 +27,7 @@
                 <img src="{{ asset('images/afpa.jpg') }}" alt="logo AFPA" width="200" height="200">
             </div>
             @endif
-            <div class="bg-white rounded-2xl m-20 p-10 shadow-2xl">
+            <div class="bg-white rounded-2xl m-20 p-10 shadow-2xl flex items-center justify-between">
                 <form action="{{ route('saveNDS') }}" method="post" enctype="multipart/form-data" class="flex justify-evenly">
                     @csrf
                     <div class="text-left">
@@ -38,7 +38,7 @@
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class=" m-4 p-4">
+                        <div class="m-4 p-4">
                             <label for="pdf">PDF</label>
                             @if(isset($note_de_service))
                             <p>Le fichier PDF actuel est :</p>
@@ -52,7 +52,7 @@
                             @enderror
                         </div>
                     </div>
-                    <div class="text-right">
+                    <div>
                         <div class=" m-4 p-4">
                             <label for="auteur">Auteur</label>
                             <input type="text" class="form-control @error('auteur') is-invalid @enderror" id="auteur" name="auteur" required value="{{ isset($note_de_service) ? $note_de_service->auteur : old('auteur') }}">
@@ -81,12 +81,12 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary bg-green-600 rounded-xl m-2 p-2 text-white">{{ isset($note_de_service) ? 'Modifier | #' : 'Valider | √' }}</button>
+                            <button type="reset" class="bg-red-600 rounded-xl m-2 p-2 text-white">Annuler | X</button>
+                        </div>
                     </div>
                 </form>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary bg-green-600 rounded-xl m-2 p-2 text-white">{{ isset($note_de_service) ? 'Modifier | #' : 'Valider | √' }}</button>
-                    <button type="reset" class="bg-red-600 rounded-xl m-2 p-2 text-white">Annuler | X</button>
-                </div>
             </div>
     </div>
     @endsection

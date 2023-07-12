@@ -9,7 +9,7 @@
                 <h1 class="text-4xl uppercase">Notes de service</h1>
                 <p>Menu</p>
             </div>
-            <img src="{{ asset('images/afpa.jpg') }}" alt="logo AFPA" width="200" height="200">
+            <img src="{{ asset('images/afpa.png') }}" alt="logo AFPA" width="200" height="200">
         </div>
         @if(isset($error))
         <div>{{ $error }}</div>

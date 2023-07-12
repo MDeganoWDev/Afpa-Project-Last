@@ -10,7 +10,7 @@
                 <h1 class="text-4xl uppercase">Modification note de service</h1>
                 <p>Vous pouvez modifier la note de service n° {{ $note_de_service->id }} ci-dessous</p>
             </div>
-            <img src="{{ asset('images/afpa.jpg') }}" alt="logo AFPA" width="200" height="200">
+            <img src="{{ asset('images/afpa.png') }}" alt="logo AFPA" width="200" height="200">
         </div>
         <form action="{{ route('updateNDS', ['slug' => $note_de_service['slug']]) }}" method="post" enctype="multipart/form-data">
             @method('put')
@@ -20,7 +20,7 @@
                     <h1 class="text-4xl uppercase">Ajout note de service</h1>
                     <p>Vous pouvez ajouter une nouvelle note de service en remplissant le formulaire ci-dessous.</p>
                 </div>
-                <img src="{{ asset('images/afpa.jpg') }}" alt="logo AFPA" width="200" height="200">
+                <img src="{{ asset('images/afpa.png') }}" alt="logo AFPA" width="200" height="200">
             </div>
             @endif
             <div class="bg-white rounded-2xl m-20 p-10 shadow-2xl">
@@ -38,7 +38,7 @@
                             <label for="pdf">PDF</label>
                             @if(isset($note_de_service))
                             <p>Le fichier PDF actuel est :</p>
-                            <embed src="{{ Storage::url($note_de_service['pdf']) }}.#toolbar=0" type="application/pdf" width="100%" height="600px" />
+                            <embed src="{{ Storage::url($note_de_service['pdf']) }}#toolbar=0" type="application/pdf" width="100%" height="600px" />
                             <input type="file" class="form-control @error('pdf') is-invalid @enderror" id="pdf" name="pdf">
                             @else
                             <input type="file" class="form-control @error('pdf') is-invalid @enderror" id="pdf" name="pdf" required>
@@ -50,7 +50,7 @@
                     </div>
                     <div>
 
-                        <div class="m-4 p-4">
+                        <div class="m-4 p-4 flex">
                             <label for="auteur">Auteur</label>
                             <input type="text" class="form-control @error('auteur') is-invalid @enderror" id="auteur" name="auteur" required value="{{ isset($note_de_service) ? $note_de_service->auteur : old('auteur') }}">
                             @error('auteur')
